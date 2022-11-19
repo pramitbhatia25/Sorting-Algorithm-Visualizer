@@ -15,19 +15,10 @@
         <button id="merge" onclick="set('merge')">Merge</button>
     </div>
     <canvas></canvas>
-    {%if(button == "bubble")%}
+    <script type="text/javascript">
+        var button = JSON.parse('{{button | tojson}}');
+    </script>
     <script type="module" src={{ url_for('static', filename='js/canvas.js') }} crossorigin="anonymous"></script>
-    {%endif%}
-    {%if(button == "insertion")%}
-    <script type="module" src={{ url_for('static', filename='js/canvas2.js') }} crossorigin="anonymous"></script>
-    {%endif%}
-    {%if(button == "merge")%}
-    <script type="module" src={{ url_for('static', filename='js/canvas3.js') }} crossorigin="anonymous"></script>
-    {%endif%}
-    {%if(button == "selection")%}
-    <script type="module" src={{ url_for('static', filename='js/canvas4.js') }} crossorigin="anonymous"></script>
-    {%endif%}
-
     <style>
         body {
           align-items: center;
@@ -40,6 +31,7 @@
     </style>
     <script>
         function set(name) {
+            button = name;
             window.location.href = 'http://127.0.0.1:5000/' + name;
         }
     </script>
