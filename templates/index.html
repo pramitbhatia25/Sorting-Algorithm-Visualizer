@@ -5,11 +5,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <title>Document</title>
+	<link rel="stylesheet" type="text/css" href={{ url_for('static',filename='style.css') }}>
 </head>
 <body>
+    <div class="navbar">
+        <button id="bubble" onclick="set('bubble')">Bubble</button>
+        <button id="insertion" onclick="set('insertion')">Insertion</button>
+        <button id="selection"onclick="set('selection')">Selection</button>
+        <button id="merge" onclick="set('merge')">Merge</button>
+    </div>
     <canvas></canvas>
-    <script type="module" src={{ url_for('static', filename='js/canvas.js') }} crossorigin="anonymous">
-    </script>
+    {%if(button == "bubble")%}
+    <script type="module" src={{ url_for('static', filename='js/canvas.js') }} crossorigin="anonymous"></script>
+    {%endif%}
+    {%if(button == "insertion")%}
+    <script type="module" src={{ url_for('static', filename='js/canvas2.js') }} crossorigin="anonymous"></script>
+    {%endif%}
+    {%if(button == "merge")%}
+    <script type="module" src={{ url_for('static', filename='js/canvas3.js') }} crossorigin="anonymous"></script>
+    {%endif%}
+    {%if(button == "selection")%}
+    <script type="module" src={{ url_for('static', filename='js/canvas4.js') }} crossorigin="anonymous"></script>
+    {%endif%}
 
     <style>
         body {
@@ -21,5 +38,10 @@
           margin: 0;
         }
     </style>
+    <script>
+        function set(name) {
+            window.location.href = 'http://127.0.0.1:5000/' + name;
+        }
+    </script>
 </body>
 </html>

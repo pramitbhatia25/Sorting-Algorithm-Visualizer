@@ -2,7 +2,7 @@ const canvas = document.querySelector('canvas')
 canvas.width = 1024;
 canvas.height = 520;
 var ctx = canvas.getContext("2d");
-console.log("A")
+
 canvas.contentEditable = true;
 
 class Platform {
@@ -41,7 +41,7 @@ platforms.forEach((p) => {
 })
 
 function animate() {
-  ctx.fillStyle = 'white';
+  ctx.fillStyle = 'green';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   platforms.forEach((p) => {
