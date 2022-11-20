@@ -14,6 +14,14 @@
         <button id="selection"onclick="set('selection')">Selection</button>
         <button id="merge" onclick="set('merge')">Merge</button>
     </div>
+    <div class="slidecontainer_speed">
+        Speed:
+        <input type="range" min="1" max="100" value="50" class="slider" id="myRange_speed">
+    </div>
+    <div class="slidecontainer_data">
+        Data:
+        <input type="range" min="1" max="100" value="50" class="slider" id="myRange_data">
+    </div>
     <canvas></canvas>
     <script type="text/javascript">
         var button = JSON.parse('{{button | tojson}}');
@@ -25,7 +33,7 @@
           display: flex;
           justify-content: center;
           height: 100vh;
-          background-color: black;
+          background-color: gray;
           margin: 0;
         }
     </style>
