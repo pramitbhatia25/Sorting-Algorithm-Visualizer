@@ -2,9 +2,8 @@ const canvas = document.querySelector('canvas')
 canvas.width = 1024;
 canvas.height = 300;
 var ctx = canvas.getContext("2d");
-console.log("A")
 canvas.contentEditable = true;
-let no_of_items = 20;
+let no_of_items = 18;
 let bubble_speed = 40;
 let insertion_speed = 10;
 
@@ -14,11 +13,30 @@ class Platform {
     this.width = 500 / no_of_items;
     this.height = height;
     this.color = color;
+    this.alt_color = "white"
   }
 
   draw() {
+    ctx.fillStyle = this.alt_color;
+    var centerX = (this.position_in_arr * (this.width+15)) + this.width/2 +2;
+    var centerY =  300 - (1 * (this.height * canvas.height * 30) / 20000);
+    var radius = this.width/2;
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);    
+    ctx.fill();
+    ctx.fillRect(this.position_in_arr * (this.width+15) + 2, 300, this.width, (-1 * (this.height * canvas.height * 30) / 20000));
+
+
+    var centerX = (this.position_in_arr * (this.width+15)) + this.width/2 ;
+    var centerY =  300 - (1 * (this.height * canvas.height * 30) / 20000);
+    var radius = this.width/2+0;
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);    
     ctx.fillStyle = this.color;
-    ctx.fillRect(this.position_in_arr * (this.width+5), 300, this.width, (-1 * (this.height * canvas.height * 30) / 20000));
+    ctx.fill();
+    ctx.fillStyle = this.alt_color;
+    ctx.fillStyle = this.color;
+    ctx.fillRect(this.position_in_arr * (this.width+15), 300, this.width, (-1 * (this.height * canvas.height * 30) / 20000));
   }
 
   update() {
@@ -28,10 +46,8 @@ class Platform {
 let random_heights = []
 for (let i = 0; i < no_of_items; i++) {
   let a = Math.floor(Math.random() * ( 500 - 50 + 1) + 50);
-  console.log(a)
   random_heights.push(a);
 }
-console.log(random_heights)
 let platforms = []
 for (let i = 0; i < no_of_items; i++) {
   platforms.push(new Platform({ in_arr: i + 1, height: random_heights[i], color: "red" }));
@@ -46,17 +62,27 @@ platforms.forEach((p) => {
 })
 
 function animate() {
-  ctx.fillStyle = 'black';
+  ctx.fillStyle = 'rgb(57, 57, 57)';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   platforms.forEach((p) => {
     p.update();
   })
+
+  if(started) {
+    document.getElementById('myRange_data').disabled = true;
+  }
+  if(!started) {
+    document.getElementById('myRange_data').disabled = false;
+  }
+
 }
 
 animate();
+var started = false;
 
 async function bubble() {
+  started = true;
   let i, j;
   let n = platforms.length
   for (i = 0; i < n - 1; i++) {
@@ -64,6 +90,8 @@ async function bubble() {
       if (platforms[j].height > platforms[j + 1].height) {
         platforms[j].color = "blue";
         platforms[j + 1].color = "blue";
+        platforms[j].alt_color = "blue";
+        platforms[j + 1].alt_color = "blue";
         await new Promise(r => setTimeout(r, bubble_speed));
         requestAnimationFrame(animate);
         let height = platforms[j + 1].height;
@@ -71,18 +99,24 @@ async function bubble() {
         platforms[j].height = height;
         platforms[j].color = "red";
         platforms[j + 1].color = "red";
+        platforms[j].alt_color = "white";
+        platforms[j + 1].alt_color = "white";
       }
     }
   }
+  started = false;
 };
 
 async function insertion() {
+started = true;
 for (let i = 1; i < platforms.length; i++) {
   let key = platforms[i].height;
   let j = i - 1;
   while (j >= 0 && key < platforms[j].height) {
     platforms[j].color = "orange";
     platforms[j + 1].color = "orange";
+    platforms[j].alt_color = "orange";
+    platforms[j + 1].alt_color = "orange";
     await new Promise(r => setTimeout(r, insertion_speed));
     requestAnimationFrame(animate);
     let a = platforms[j+1].height
@@ -90,25 +124,34 @@ for (let i = 1; i < platforms.length; i++) {
     platforms[j].height = a
     platforms[j].color = "red";
     platforms[j + 1].color = "red";
+    platforms[j].alt_color = "white";
+    platforms[j + 1].alt_color = "white";
     --j;
 }
   platforms[j + 1].height = key;
 }
+started = false;
 }
+document.getElementById(button).style.backgroundColor = 'red';
 
-if (button == 'bubble') {
-  bubble();
-}
-else if (button == 'insertion') {
-  insertion();
+function startSort() {
+  console.log("A")
+  if (button == 'bubble') {
+    console.log("B")
+    bubble();
+  }
+  else if (button == 'insertion') {
+    console.log("I")
+    insertion();
+  }  
 }
 
 var data_slider = document.getElementById("myRange_data");
 var speed_slider = document.getElementById("myRange_speed");
 
 data_slider.oninput = function () {  
-  console.log(no_of_items)
-  no_of_items = this.value > 10 ? this.value : 5;
+  no_of_items = this.value > 5 ? this.value : 5;
+  console.log(this.value)
   platforms = []
   random_heights = []
   for (let i = 0; i < no_of_items; i++) {
@@ -126,17 +169,15 @@ data_slider.oninput = function () {
     sum_heights += p.height
     max_heights < p.height ? max_heights = p.height : max_heights = max_heights;
   })
-  insertion()
   requestAnimationFrame(animate);
 }
 
 speed_slider.oninput = function () {
-  console.log(speed_slider.value)
-  console.log(this.value);
-  if(button = 'bubble') {
+  if(button == 'bubble') {
     bubble_speed = speed_slider.value;
   }
-  if(button = 'insertion') {
+  if(button == 'insertion') {
     insertion_speed = speed_slider.value;
   }
 }
+

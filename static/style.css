@@ -24,8 +24,56 @@ button {
     width: 10%;
 }
 
+.sort_bar {
+  text-align: center;
+  height: 100px;
+}
+
+.sort_button {
+  text-align: center;
+  font-size: large;
+  font-weight: 900;
+  color: black;
+  background-color: rgb(256, 256, 256, 0.8);
+  border: 1px solid black;
+  border-radius: 20px;
+  top: 60vh;
+  position: relative;
+  width: 70%;
+  margin: 0;
+  margin-top: 20px;
+  height: 60px;
+  margin-bottom: 20px;
+}
+
 ul {
-    list-style-type: none;
+  list-style-type: none;
+}
+
+.speed_text {
+  top: 40px;
+  left: 100px;
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.data_text {
+  top: 40px;
+  right: 100px;
+  color: white;  
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#r {
+  width: 100vh;
+}
+
+#myRange_speed {
+  direction: rtl;
 }
 
 .slidecontainer_data {

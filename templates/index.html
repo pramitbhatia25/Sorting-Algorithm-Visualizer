@@ -13,27 +13,32 @@
         <button id="insertion" onclick="set('insertion')">Insertion</button>
         <button id="selection"onclick="set('selection')">Selection</button>
         <button id="merge" onclick="set('merge')">Merge</button>
+        <div class="randomize">
+            <button id="r" class="randomize" onclick="randomize()">Randomize</button>
+        </div>
+        <div class="sort_bar">
+            <button id="b" class="sort_button" onclick="startSort()">Sort</button>
+        </div>
     </div>
     <div class="slidecontainer_speed">
-        Speed:
+        <div class="speed_text">Speed:</div>
         <input type="range" min="1" max="100" value="50" class="slider" id="myRange_speed">
     </div>
     <div class="slidecontainer_data">
-        Data:
-        <input type="range" min="1" max="100" value="50" class="slider" id="myRange_data">
+        <div class="data_text">Data:</div>
+        <input type="range" min="5" max="30" value="18" class="slider" id="myRange_data">
     </div>
     <canvas></canvas>
     <script type="text/javascript">
         var button = JSON.parse('{{button | tojson}}');
     </script>
-    <script type="module" src={{ url_for('static', filename='js/canvas.js') }} crossorigin="anonymous"></script>
     <style>
         body {
           align-items: center;
           display: flex;
           justify-content: center;
           height: 100vh;
-          background-color: gray;
+          background-color: rgb(57, 57, 57);
           margin: 0;
         }
     </style>
@@ -42,6 +47,10 @@
             button = name;
             window.location.href = 'http://127.0.0.1:5000/' + name;
         }
+        function randomize() {
+            window.location.href = 'http://127.0.0.1:5000/' + button;
+        }
     </script>
+    <script type="text/javascript" src={{ url_for('static', filename='js/canvas.js') }} crossorigin="anonymous"></script>
 </body>
 </html>
