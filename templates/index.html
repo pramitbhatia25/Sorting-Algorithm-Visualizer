@@ -9,6 +9,8 @@
 </head>
 <body>
     <div class="navbar">
+        <div class="head">Made By Pramit Bhatia.</div>
+        <div class="head2"><a href="">Source Code</a></div>
         <button id="bubble" onclick="set('bubble')">Bubble</button>
         <button id="insertion" onclick="set('insertion')">Insertion</button>
         <button id="selection"onclick="set('selection')">Selection</button>
@@ -26,7 +28,7 @@
     </div>
     <div class="slidecontainer_data">
         <div class="data_text">Data:</div>
-        <input type="range" min="5" max="30" value="18" class="slider" id="myRange_data">
+        <input type="range" min="20" max="100" value="60" class="slider" id="myRange_data">
     </div>
     <canvas></canvas>
     <script type="text/javascript">
@@ -46,9 +48,6 @@
         function set(name) {
             button = name;
             window.location.href = 'http://127.0.0.1:5000/' + name;
-        }
-        function randomize() {
-            window.location.href = 'http://127.0.0.1:5000/' + button;
         }
     </script>
     <script type="text/javascript" src={{ url_for('static', filename='js/canvas.js') }} crossorigin="anonymous"></script>

@@ -51,21 +51,13 @@ ul {
 }
 
 .speed_text {
-  top: 40px;
-  left: 100px;
   color: white;
   font-size: 20px;
-  text-align: center;
-  margin-bottom: 20px;
 }
 
 .data_text {
-  top: 40px;
-  right: 100px;
   color: white;  
   font-size: 20px;
-  text-align: center;
-  margin-bottom: 20px;
 }
 
 #r {
@@ -76,18 +68,18 @@ ul {
   direction: rtl;
 }
 
-.slidecontainer_data {
+.slidecontainer_data { 
     position: absolute;
     width: 10vw; /* Width of the outside container */
     top: 30px;
-    left: 100px;
+    right: 100px;
     color: black;
   }
 
 .slidecontainer_speed {
     position: absolute;
     width: 10vw; /* Width of the outside container */
-    top: 30px;
+    top: 100px;
     right: 100px;
     color: black;
   }
@@ -120,6 +112,23 @@ ul {
     cursor: pointer; /* Cursor on hover */
   }
   
+  .head {
+    color: white;
+    font-size: 20px;  
+    left:40px;
+    top: 40px;
+    position: absolute;
+  }
+
+  a {
+    text-decoration: none;
+    color: lightblue;
+    font-size: 20px;  
+    left:40px;
+    top: 70px;
+    position: absolute;
+  }
+
   .slider::-moz-range-thumb {
     width: 25px; /* Set a specific slider handle width */
     height: 25px; /* Slider handle height */

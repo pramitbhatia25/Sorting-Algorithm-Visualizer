@@ -11,7 +11,7 @@ app = Flask(__name__)
 @app.route("/")
 @cross_origin()
 def ma():
-    return flask.render_template("index.html", button="bubble")
+    return flask.render_template("index.html", button="none")
 
 @app.route("/<button>")
 @cross_origin()

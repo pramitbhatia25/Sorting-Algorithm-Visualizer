@@ -1,16 +1,16 @@
 const canvas = document.querySelector('canvas')
-canvas.width = 1024;
+canvas.width = window.innerWidth - 100;
 canvas.height = 300;
 var ctx = canvas.getContext("2d");
 canvas.contentEditable = true;
-let no_of_items = 18;
+let no_of_items = 60;
 let bubble_speed = 40;
 let insertion_speed = 10;
 
 class Platform {
   constructor({ in_arr, height, color }) {
     this.position_in_arr = in_arr,
-    this.width = 500 / no_of_items;
+    this.width = canvas.width / no_of_items;
     this.height = height;
     this.color = color;
     this.alt_color = "white"
@@ -18,39 +18,79 @@ class Platform {
 
   draw() {
     ctx.fillStyle = this.alt_color;
-    var centerX = (this.position_in_arr * (this.width+15)) + this.width/2 +2;
-    var centerY =  300 - (1 * (this.height * canvas.height * 30) / 20000);
-    var radius = this.width/2;
+    var centerX = (this.position_in_arr * (this.width)) + (this.width-5)/2 +2;
+    var centerY =  300 - (this.width-5)/2 - (1 * (this.height * canvas.height * 30) / 20000);
+    var radius = (this.width-5)/2;
     ctx.beginPath();
     ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);    
     ctx.fill();
-    ctx.fillRect(this.position_in_arr * (this.width+15) + 2, 300, this.width, (-1 * (this.height * canvas.height * 30) / 20000));
+    ctx.fillRect(this.position_in_arr * (this.width) + 2, 300 - (this.width-5)/2, this.width-5, (-1 * (this.height * canvas.height * 30) / 20000));
 
+    var centerX = (this.position_in_arr * (this.width) ) + (this.width-5)/2 +2 ;
+    var centerY =  300 - (this.width-5)/2;
+    var radius = (this.width-5)/2;
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);    
+    ctx.fillStyle = this.alt_color;
+    ctx.fill();
 
-    var centerX = (this.position_in_arr * (this.width+15)) + this.width/2 ;
-    var centerY =  300 - (1 * (this.height * canvas.height * 30) / 20000);
-    var radius = this.width/2+0;
+    var centerX = (this.position_in_arr * (this.width)) + (this.width-5)/2 ;
+    var centerY =  300 - (this.width-5)/2 - (1 * (this.height * canvas.height * 30) / 20000);
+    var radius = (this.width-5)/2;
     ctx.beginPath();
     ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);    
     ctx.fillStyle = this.color;
     ctx.fill();
     ctx.fillStyle = this.alt_color;
     ctx.fillStyle = this.color;
-    ctx.fillRect(this.position_in_arr * (this.width+15), 300, this.width, (-1 * (this.height * canvas.height * 30) / 20000));
+    ctx.fillRect(this.position_in_arr * (this.width), 300 - (this.width-5)/2, this.width-5, (-1 * (this.height * canvas.height * 30) / 20000));
+
+    var centerX = (this.position_in_arr * (this.width)) + (this.width-5)/2 ;
+    var centerY =  300 - (this.width-5)/2;
+    var radius = (this.width-5)/2;
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);    
+    ctx.fillStyle = this.color;
+    ctx.fill();
   }
 
   update() {
     this.draw();
   }
 }
+
+function randomize() {
+  if(!started) {    
+  console.log("A");
+  platforms = []
+  random_heights = []
+  for (let i = 0; i < no_of_items; i++) {
+    let a = Math.floor(Math.random() * ( 500 - 50 + 1) + 50);
+    random_heights.push(a);
+  }
+  for (let i = 0; i < no_of_items; i++) {
+    platforms.push(new Platform({ in_arr: i , height: random_heights[i], color: "red" }));
+  }
+  
+  sum_heights = 0
+  max_heights = -1
+  
+  platforms.forEach((p) => {
+    sum_heights += p.height
+    max_heights < p.height ? max_heights = p.height : max_heights = max_heights;
+  })
+  requestAnimationFrame(animate);
+}
+}
+
 let random_heights = []
 for (let i = 0; i < no_of_items; i++) {
-  let a = Math.floor(Math.random() * ( 500 - 50 + 1) + 50);
+  let a = Math.floor(Math.random() * ( 400 - 50 + 1) + 50);
   random_heights.push(a);
 }
 let platforms = []
 for (let i = 0; i < no_of_items; i++) {
-  platforms.push(new Platform({ in_arr: i + 1, height: random_heights[i], color: "red" }));
+  platforms.push(new Platform({ in_arr: i, height: random_heights[i], color: "red" }));
 }
 
 let sum_heights = 0
@@ -135,13 +175,13 @@ started = false;
 document.getElementById(button).style.backgroundColor = 'red';
 
 function startSort() {
-  console.log("A")
+  if(button=="none") {
+    alert("Please Select A Sorting Algorithm First.")
+  }
   if (button == 'bubble') {
-    console.log("B")
     bubble();
   }
   else if (button == 'insertion') {
-    console.log("I")
     insertion();
   }  
 }
@@ -151,7 +191,6 @@ var speed_slider = document.getElementById("myRange_speed");
 
 data_slider.oninput = function () {  
   no_of_items = this.value > 5 ? this.value : 5;
-  console.log(this.value)
   platforms = []
   random_heights = []
   for (let i = 0; i < no_of_items; i++) {
@@ -159,7 +198,7 @@ data_slider.oninput = function () {
     random_heights.push(a);
   }
   for (let i = 0; i < no_of_items; i++) {
-    platforms.push(new Platform({ in_arr: i + 1, height: random_heights[i], color: "red" }));
+    platforms.push(new Platform({ in_arr: i , height: random_heights[i], color: "red" }));
   }
   
   sum_heights = 0
@@ -174,10 +213,12 @@ data_slider.oninput = function () {
 
 speed_slider.oninput = function () {
   if(button == 'bubble') {
-    bubble_speed = speed_slider.value;
+    bubble_speed = speed_slider.value *2;
+    console.log(bubble_speed)
   }
   if(button == 'insertion') {
-    insertion_speed = speed_slider.value;
+    insertion_speed = speed_slider.value *2;
+    console.log(insertion_speed)
   }
 }
 
