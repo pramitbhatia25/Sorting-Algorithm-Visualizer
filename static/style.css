@@ -10,7 +10,7 @@
 
 button {
     text-align: center;
-    font-size: large;
+    font-size: 100%;
     font-weight: 900;
     color: black;
     height: 50px;
@@ -21,6 +21,7 @@ button {
     margin-top: 20px;
     margin-left: 10px;
     margin-right: 10px;
+    min-width:fit-content;
     width: 10%;
 }
 
@@ -61,7 +62,7 @@ ul {
 }
 
 #r {
-  width: 100vh;
+  width: 50%;
 }
 
 #myRange_speed {
