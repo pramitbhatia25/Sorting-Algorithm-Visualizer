@@ -172,7 +172,10 @@ for (let i = 1; i < platforms.length; i++) {
 }
 started = false;
 }
-document.getElementById(button).style.backgroundColor = 'red';
+
+if(button != 'none') {
+  document.getElementById(button).style.backgroundColor = 'red';
+}
 
 function startSort() {
   if(button=="none") {
