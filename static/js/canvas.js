@@ -1,11 +1,13 @@
 const canvas = document.querySelector('canvas')
-canvas.width = window.innerWidth - 100;
+canvas.width = window.innerWidth * 0.8;
 canvas.height = 300;
 var ctx = canvas.getContext("2d");
 canvas.contentEditable = true;
 let no_of_items = 60;
 let bubble_speed = 40;
 let insertion_speed = 10;
+
+alert('Please View On Laptop, Mobile Support Is Under Development');
 
 class Platform {
   constructor({ in_arr, height, color }) {
@@ -81,6 +83,7 @@ function randomize() {
   })
   requestAnimationFrame(animate);
 }
+
 }
 
 let random_heights = []
@@ -127,6 +130,12 @@ async function bubble() {
   let n = platforms.length
   for (i = 0; i < n - 1; i++) {
     for (j = 0; j < n - i - 1; j++) {
+      platforms[j].color = "orange";
+      await new Promise(r => setTimeout(r, bubble_speed));
+      requestAnimationFrame(animate);
+      platforms[j+1].color = "orange";
+      await new Promise(r => setTimeout(r, bubble_speed));
+      requestAnimationFrame(animate);
       if (platforms[j].height > platforms[j + 1].height) {
         platforms[j].color = "blue";
         platforms[j + 1].color = "blue";
@@ -137,14 +146,26 @@ async function bubble() {
         let height = platforms[j + 1].height;
         platforms[j + 1].height = platforms[j].height;
         platforms[j].height = height;
+        await new Promise(r => setTimeout(r, bubble_speed));
+        requestAnimationFrame(animate);
         platforms[j].color = "red";
         platforms[j + 1].color = "red";
         platforms[j].alt_color = "white";
         platforms[j + 1].alt_color = "white";
       }
+      platforms[j].color = "red";
+      platforms[j+1].color = "red";
+      await new Promise(r => setTimeout(r, bubble_speed));
+      requestAnimationFrame(animate);
     }
-  }
-  started = false;
+    platforms[j].color = "green";
+    await new Promise(r => setTimeout(r, bubble_speed));
+    requestAnimationFrame(animate);
+}
+  platforms[0].color = "green";
+  await new Promise(r => setTimeout(r, bubble_speed));
+  requestAnimationFrame(animate);
+started = false;
 };
 
 async function insertion() {
@@ -162,8 +183,10 @@ for (let i = 1; i < platforms.length; i++) {
     let a = platforms[j+1].height
     platforms[j + 1].height = platforms[j].height;
     platforms[j].height = a
-    platforms[j].color = "red";
-    platforms[j + 1].color = "red";
+    await new Promise(r => setTimeout(r, insertion_speed));
+    requestAnimationFrame(animate);
+    platforms[j].color = "green";
+    platforms[j + 1].color = "green";
     platforms[j].alt_color = "white";
     platforms[j + 1].alt_color = "white";
     --j;
@@ -173,20 +196,63 @@ for (let i = 1; i < platforms.length; i++) {
 started = false;
 }
 
+async function selection() {
+console.log("S");
+started = true
+let min_idx = 0
+for(let i = 0; i < platforms.length; i++)
+{
+  console.log("SS");
+  min_idx = i
+  for(let j = i+1; j < platforms.length; j++) {
+    platforms[j].color = "orange";
+    await new Promise(r => setTimeout(r, insertion_speed));
+    requestAnimationFrame(animate);
+      if(platforms[min_idx].height > platforms[j].height){
+          min_idx = j
+      }
+    platforms[j].color = "red";
+      }
+  platforms[min_idx].color = "orange";
+  await new Promise(r => setTimeout(r, insertion_speed));
+  requestAnimationFrame(animate);
+  platforms[min_idx].color = "blue";
+  platforms[i].color = "blue";
+  await new Promise(r => setTimeout(r, insertion_speed));
+  requestAnimationFrame(animate);
+  let a = platforms[min_idx].height
+  platforms[min_idx].height = platforms[i].height;
+  platforms[i].height = a;
+  platforms[min_idx].color = "red";
+  platforms[i].color = "green";
+  await new Promise(r => setTimeout(r, insertion_speed));
+  requestAnimationFrame(animate);
+}
+     
+             
+started = false; 
+}
+
 if(button != 'none') {
   document.getElementById(button).style.backgroundColor = 'red';
 }
 
 function startSort() {
-  if(button=="none") {
-    alert("Please Select A Sorting Algorithm First.")
+  if(!started) {
+    if(button=="none") {
+      alert("Please Select A Sorting Algorithm First.")
+    }
+    if (button == 'bubble') {
+      bubble();
+    }
+    else if (button == 'insertion') {
+      insertion();
+    }  
+    else if (button == 'selection') {
+     selection();
+    }  
+  
   }
-  if (button == 'bubble') {
-    bubble();
-  }
-  else if (button == 'insertion') {
-    insertion();
-  }  
 }
 
 var data_slider = document.getElementById("myRange_data");
@@ -220,6 +286,10 @@ speed_slider.oninput = function () {
     console.log(bubble_speed)
   }
   if(button == 'insertion') {
+    insertion_speed = speed_slider.value *2;
+    console.log(insertion_speed)
+  }
+  if(button == 'selection') {
     insertion_speed = speed_slider.value *2;
     console.log(insertion_speed)
   }

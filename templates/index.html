@@ -9,8 +9,8 @@
 </head>
 <body>
     <div class="navbar">
-        <div class="head">Made By Pramit Bhatia.</div>
-        <div class="head2"><a href="https://github.com/pramitbhatia25/Sorting-Algorith-Visualizer">Source Code</a></div>
+        <div class="head">Made By <a class="ah" target="_blank"href="https://pramitbhatia25.github.io/Portfolio">Pramit Bhatia.</a></div>
+        <div class="head2"><a class="a" target="_blank"href="https://github.com/pramitbhatia25/Sorting-Algorith-Visualizer">Source Code</a></div>
         <button id="bubble" onclick="set('bubble')">Bubble</button>
         <button id="insertion" onclick="set('insertion')">Insertion</button>
         <button id="selection"onclick="set('selection')">Selection</button>
@@ -47,7 +47,9 @@
     <script>
         function set(name) {
             button = name;
-            window.location.href = 'https://sorting-algo-viz.herokuapp.com/' + name;
+            local = "http://127.0.0.1:5000/";
+            window.location.href = local + name;
+            // window.location.href = 'https://sorting-algo-viz.herokuapp.com/' + name;
         }
     </script>
     <script type="text/javascript" src={{ url_for('static', filename='js/canvas.js') }} crossorigin="anonymous"></script>

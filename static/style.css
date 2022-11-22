@@ -120,7 +120,7 @@ ul {
     position: absolute;
   }
 
-  a {
+  .a {
     text-decoration: none;
     color: lightblue;
     font-size: 20px;  
@@ -128,6 +128,11 @@ ul {
     top: 70px;
     position: absolute;
   }
+  .ah {
+    text-decoration: none;
+    color: red;
+    font-size: 20px;  
+ }
 
   .slider::-moz-range-thumb {
     width: 25px; /* Set a specific slider handle width */
