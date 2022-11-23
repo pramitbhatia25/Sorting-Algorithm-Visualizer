@@ -14,7 +14,7 @@ let merge_speed = 10;
 class Platform {
   constructor({ in_arr, height, color }) {
     this.position_in_arr = in_arr,
-      this.width = canvas.width / no_of_items;
+    this.width = canvas.width / no_of_items;
     this.height = height;
     this.color = color;
     this.alt_color = "white"
@@ -64,7 +64,7 @@ class Platform {
 }
 
 function randomize() {
-  if (!started) {
+    if (!started) {
     platforms = []
     random_heights = []
     for (let i = 0; i < no_of_items; i++) {
@@ -84,7 +84,10 @@ function randomize() {
     })
     requestAnimationFrame(animate);
   }
+}
 
+if(canvas.width / no_of_items < 5){
+  no_of_items = 20;
 }
 
 let random_heights = []
@@ -293,6 +296,7 @@ async function startSort() {
 }
 
 var data_slider = document.getElementById("myRange_data");
+var small_speed_slider = document.getElementById("abra");
 var speed_slider = document.getElementById("myRange_speed");
 
 data_slider.oninput = function () {
@@ -315,6 +319,25 @@ speed_slider.oninput = function () {
   }
   if (button == 'merge') {
     merge_speed = speed_slider.value * 2;
+    console.log(merge_speed)
+  }
+}
+
+small_speed_slider.oninput = function () {
+  if (button == 'bubble') {
+    bubble_speed = small_speed_slider.value * 2;
+    console.log(bubble_speed)
+  }
+  if (button == 'insertion') {
+    insertion_speed = small_speed_slider.value * 2;
+    console.log(insertion_speed)
+  }
+  if (button == 'selection') {
+    selection_speed = small_speed_slider.value * 2;
+    console.log(selection_speed)
+  }
+  if (button == 'merge') {
+    merge_speed = small_speed_slider.value * 2;
     console.log(merge_speed)
   }
 }

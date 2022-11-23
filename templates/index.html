@@ -1,26 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <title>Document</title>
-	<link rel="stylesheet" type="text/css" href={{ url_for('static',filename='style.css') }}>
+    <link rel="stylesheet" type="text/css" href={{ url_for('static',filename='style.css' ) }}>
 </head>
+
 <body>
+    <div class="head">Made By <a class="ah" target="_blank" href="https://pramitbhatia25.github.io/Portfolio">Pramit
+            Bhatia.</a></div>
+    <div class="head2"><a class="a" target="_blank"
+            href="https://github.com/pramitbhatia25/Sorting-Algorith-Visualizer">Source Code</a></div>
     <div class="navbar">
-        <div class="head">Made By <a class="ah" target="_blank"href="https://pramitbhatia25.github.io/Portfolio">Pramit Bhatia.</a></div>
-        <div class="head2"><a class="a" target="_blank"href="https://github.com/pramitbhatia25/Sorting-Algorith-Visualizer">Source Code</a></div>
         <button id="bubble" onclick="set('bubble')">Bubble</button>
         <button id="insertion" onclick="set('insertion')">Insertion</button>
-        <button id="selection"onclick="set('selection')">Selection</button>
+        <button id="selection" onclick="set('selection')">Selection</button>
         <button id="merge" onclick="set('merge')">Merge</button>
         <div class="randomize">
             <button id="r" class="randomize" onclick="randomize()">Randomize</button>
         </div>
         <div class="sort_bar">
-            <button id="b" class="sort_button" onclick="startSort()">Sort</button>
+        <button id="b" class="sort_button" onclick="startSort()">Sort</button>
         </div>
+        <input type="range" min="1" max="100" value="50" class="slider" id="abra">
+        <div class="small_speed">Select Speed!</div>
+        <div class="spacer"></div>
+    </div>
     </div>
     <div class="slidecontainer_speed">
         <div class="speed_text">Speed:</div>
@@ -36,12 +44,12 @@
     </script>
     <style>
         body {
-          align-items: center;
-          display: flex;
-          justify-content: center;
-          height: 100vh;
-          background-color: rgb(57, 57, 57);
-          margin: 0;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            height: 100vh;
+            background-color: rgb(57, 57, 57);
+            margin: 0;
         }
     </style>
     <script>
@@ -52,6 +60,8 @@
             window.location.href = 'https://sorting-algo-viz.herokuapp.com/' + name;
         }
     </script>
-    <script type="text/javascript" src={{ url_for('static', filename='js/canvas.js') }} crossorigin="anonymous"></script>
+    <script type="text/javascript" src={{ url_for('static', filename='js/canvas.js' ) }}
+        crossorigin="anonymous"></script>
 </body>
+
 </html>
