@@ -229,132 +229,37 @@ async function selection() {
   started = false;
 }
 
-async function merge(platforms, p, q, r) {
-  // Create L ← A[p..q] and M ← A[q+1..r]
-  var n1 = q - p + 1;
-  var n2 = r - q;
 
-  var L = new Array(n1).fill( new Platform({in_arr: 0, color: "red", height: 0}));
-  var M = new Array(n2).fill( new Platform({in_arr: 0, color: "red", height: 0}));
-  // var L[n1], M[n2];
-
-  for (let i = 0; i < n1; i++) {
-    L[i].height = platforms[p + i].height;
-    L[i].color = platforms[p + i].color;
-    L[i].in_arr = platforms[p + i].in_arr;
-  }
-  for (let j = 0; j < n2; j++){
-    M[j].height = platforms[q + 1 + j].height;
-    M[j].color = platforms[q + 1 + j].color;
-    M[j].in_arr = platforms[q + 1 + j].in_arr;
-  }
-  // Maintain current index of sub-arrays and main array
-  let i, j, k;
-  i = 0;
-  j = 0;
-  k = p;
-
-    // Until we reach either end of either L or M, pick larger among
-    // elements L and M and place them in the correct position at A[p..r]
-    while (i < n1 && j < n2) {
-      if (L[i].height <= M[j].height) {
-        platforms[k].height = L[i].height;
-        i++;
-      } else {
-        platforms[k].height= M[j].height;
-        j++;
-      }
-      k++;
-    }
-
-    // When we run out of elements in either L or M,
-    // pick up the remaining elements and put in A[p..r]
-    while (i < n1) {
-      platforms[k].height = L[i].height;
-      i++;
-      k++;
-    }
-
-    while (j < n2) {
-      platforms[k].height = M[j].height;
-      j++;
-      k++;
-    }
-    await new Promise(r => setTimeout(r, insertion_speed));
-    requestAnimationFrame(animate);
-    } 
-
-
-// l is for left index and r is
-// right index of the sub-array
-// of arr to be sorted */
-async function mergeSort(platforms, l, r) {
-  if (l >= r) {
-    return;//returns recursively
-  }
-  var m = l + parseInt((r - l) / 2);
-  mergeSort(platforms, l, m);
-  mergeSort(platforms, m + 1, r);
-  merge(platforms, l, m, r);
-  platforms.forEach((p) => {
-    console.log(p.height)
-  })
-  console.log("******************************")
-  await new Promise(r => setTimeout(r, 100000));
-  requestAnimationFrame(animate);
-  console.log("AAA");
-}
-
-async function Mss(platforms) {
-  requestAnimationFrame(animate);
-  if(platforms.length > 1) {
-        r = Math.floor(platforms.length/2);
-        L = platforms.slice(0, r)
-        M = platforms.slice(r, platforms.length )
-        Mss(L)
-        Mss(M)
-
-        let i = j = k = 0
-
-        while(i < L.length && j < M.length) {
-            if (L[i].height < M[j].height) {
-              ans[k].height = L[i].height
-                i += 1
-            }
-            else{
-              ans[k].height = M[j].height
-                j += 1
-                        }
-                        ans[k].color = "green";
-                        await new Promise(r => setTimeout(r, insertion_speed));
-                        requestAnimationFrame(animate);
-                    k += 1
+async function merge(left, right){
+    let arr = []
+    while (left.length && right.length) {
+        if (left[0] < right[0]) {
+            arr.push(left.shift())  
+        } else {
+            arr.push(right.shift()) 
         }
-        while (i < L.length) {
-          ans[k].height = L[i].height
-          ans[k].color = "green";
-            await new Promise(r => setTimeout(r, insertion_speed));
-            requestAnimationFrame(animate);
-            i += 1
-            k += 1
+    }
+    return [ ...arr, ...left, ...right ]
 }
-        while (j < M.length) {
-          ans[k].height = M[j].height
-          ans[k].color = "green";
-            await new Promise(r => setTimeout(r, insertion_speed));
-            requestAnimationFrame(animate);
-            j += 1
-            k += 1
-}
+
+async function mergeSort(array) {
+  const half = array.length / 2
+  
+  // Base case or terminating case
+  if(array.length < 2){
+    return array 
   }
+  
+  const left = array.splice(0, half)
+  return merge(await mergeSort(left),await mergeSort(array))
 }
 
 if (button != 'none') {
   document.getElementById(button).style.backgroundColor = 'red';
 }
+var tempArr = [...platforms];
 
-var ans = platforms;
-function startSort() {
+async function startSort() {
   if (!started) {
     if (button == "none") {
       alert("Please Select A Sorting Algorithm First.")
@@ -369,15 +274,20 @@ function startSort() {
       selection();
     }
     else if (button == 'merge') {
-      alert('Merge Sort is currently under Maintainence. Please try again later!')
-      // platforms.forEach((p) => {
-      //   console.log(p.height)
-      // })
-      // console.log("******************************1")
-      // Mss(platforms);
-      // platforms = ans;
-      // requestAnimationFrame(animate);
-        }
+      let array = []
+      platforms.forEach((p) => {
+        array.push(p.height);
+      })
+      array = await mergeSort(array);
+      i = 0
+      platforms.forEach((p) => {
+        p.height = array[i]
+        p.color = "green"
+        i++
+      })
+      await new Promise(r => setTimeout(r, insertion_speed));
+      requestAnimationFrame(animate);
+    }
 
   }
 }
