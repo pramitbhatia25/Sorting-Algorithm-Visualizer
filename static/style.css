@@ -1,28 +1,28 @@
 .navbar {
-    display: block;
-    background-color: transparent;
-    margin: auto;
-    position: absolute;
-    top:0;
-    text-align: center;
-    width: 100vw
+  display: block;
+  background-color: transparent;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  text-align: center;
+  width: 99vw;
 }
 
 button {
-    text-align: center;
-    font-size: 100%;
-    font-weight: 900;
-    color: black;
-    height: 50px;
-    background-color: rgb(256, 256, 256, 0.8);
-    border: 1px solid black;
-    border-radius: 20px;
-    position: relative;
-    margin-top: 20px;
-    margin-left: 10px;
-    margin-right: 10px;
-    min-width:fit-content;
-    width: 10%;
+  text-align: center;
+  font-size: 100%;
+  font-weight: 900;
+  color: black;
+  height: 50px;
+  background-color: rgb(256, 256, 256, 0.8);
+  border: 1px solid black;
+  border-radius: 20px;
+  position: relative;
+  margin-top: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+  min-width: fit-content;
+  width: 10%;
 }
 
 .sort_bar {
@@ -57,7 +57,7 @@ ul {
 }
 
 .data_text {
-  color: white;  
+  color: white;
   font-size: 20px;
 }
 
@@ -69,164 +69,241 @@ ul {
   direction: rtl;
 }
 
-.slidecontainer_data { 
-    position: absolute;
-    width: 10vw; /* Width of the outside container */
-    top: 30px;
-    right: 100px;
-    color: black;
-  }
+.slidecontainer_data {
+  position: absolute;
+  width: 10vw; /* Width of the outside container */
+  top: 30px;
+  right: 100px;
+  color: black;
+}
 
 .slidecontainer_speed {
+  position: absolute;
+  width: 10vw; /* Width of the outside container */
+  top: 100px;
+  right: 100px;
+  color: black;
+}
+
+/* The slider itself */
+.slider {
+  -webkit-appearance: none; /* Override default CSS styles */
+  appearance: none;
+  width: 100%; /* Full-width */
+  height: 15px; /* Specified height */
+  background: #d3d3d3; /* Grey background */
+  outline: none; /* Remove outline */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: 0.2s; /* 0.2 seconds transition on hover */
+  transition: opacity 0.2s;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 20px; /* Set a specific slider handle width */
+  height: 20px; /* Slider handle height */
+  background: #04aa6d; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+.head {
+  color: white;
+  font-size: 20px;
+  left: 40px;
+  top: 40px;
+  position: absolute;
+}
+
+.a {
+  text-decoration: none;
+  color: lightblue;
+  font-size: 20px;
+  left: 40px;
+  top: 70px;
+  position: absolute;
+}
+.ah {
+  text-decoration: none;
+  color: red;
+  font-size: 20px;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #04aa6d; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+#abra {
+  visibility: hidden;
+}
+
+.small_speed {
+  visibility: hidden;
+}
+
+.spacer {
+  visibility: hidden;
+}
+.small_select {
+  visibility: hidden;
+}
+
+@media screen and (max-width: 930px) {
+    canvas {
     position: absolute;
-    width: 10vw; /* Width of the outside container */
     top: 100px;
-    right: 100px;
-    color: black;
   }
-  
-  /* The slider itself */
-  .slider {
-    -webkit-appearance: none;  /* Override default CSS styles */
-    appearance: none;
-    width: 100%; /* Full-width */
-    height: 15px; /* Specified height */
-    background: #d3d3d3; /* Grey background */
-    outline: none; /* Remove outline */
-    opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
-    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
-    transition: opacity .2s;
-  }
-  
-  /* Mouse-over effects */
-  .slider:hover {
-    opacity: 1; /* Fully shown on mouse-over */
-  }
-  
-  /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
-  .slider::-webkit-slider-thumb {
-    -webkit-appearance: none; /* Override default look */
-    appearance: none;
-    width: 20px; /* Set a specific slider handle width */
-    height: 20px; /* Slider handle height */
-    background: #04AA6D; /* Green background */
-    cursor: pointer; /* Cursor on hover */
-  }
-  
-  .head {
-    color: white;
-    font-size: 20px;  
-    left:40px;
-    top: 40px;
-    position: absolute;
-  }
-
-  .a {
-    text-decoration: none;
-    color: lightblue;
-    font-size: 20px;  
-    left:40px;
-    top: 70px;
-    position: absolute;
-  }
-  .ah {
-    text-decoration: none;
-    color: red;
-    font-size: 20px;  
- }
-
-  .slider::-moz-range-thumb {
-    width: 25px; /* Set a specific slider handle width */
-    height: 25px; /* Slider handle height */
-    background: #04AA6D; /* Green background */
-    cursor: pointer; /* Cursor on hover */
-  }
-
-  #abra {
+  .navbar {
     visibility: hidden;
   }
-
+  .slidecontainer_speed {
+    visibility: hidden;
+  }
+  .slidecontainer_data {
+    visibility: hidden;
+  }
+  #b {
+    display: block;
+    visibility: visible;
+    position: absolute;
+    top: 450px;
+    left: 20%;
+    right: 20%;
+    min-width: fit-content;
+    width: 200px;
+    height: 40px;
+    font-size: 12px;
+    margin: auto;
+    margin-bottom: 200px;
+  }
+  #r {
+    display: block;
+    visibility: visible;
+    position: absolute;
+    top: 500px;
+    left: 20%;
+    right: 20%;
+    min-width: fit-content;
+    width: 200px;
+    height: 40px;
+    margin: auto;
+    font-size: 12px;
+  }
   .small_speed {
-    visibility: hidden;
+    visibility: visible;
+    display: block;
+    position: absolute;
+    top: 560px;
+    left: 20%;
+    right: 20%;
+    width: 200px;
+    height: 20px;
+    margin: auto;
+    margin-bottom: 200px;
+    color: white;
   }
-
-    @media screen and (max-width: 930px) {
-    .navbar {
-      visibility: hidden;
-    }
-    .slidecontainer_speed {
-      visibility: hidden;
-    }
-    .slidecontainer_data {
-      visibility: hidden;
-    }
-    #b {
-      display: block;
-      visibility: visible;
-      position: absolute;
-      top: 500px;
-      left: 20%;
-      right: 20%;
-      min-width: fit-content;
-      width: 200px;
-      height: 40px;
-      font-size: 12px;
-      margin:auto;
-      margin-bottom: 200px;
-    }
-    #r {
-      display: block;
-      visibility: visible;
-      position: absolute;
-      top: 550px;
-      left: 20%;
-      right: 20%;
-      min-width: fit-content;
-      width: 200px;
-      height: 40px;
-      margin:auto;
-      font-size: 12px;
-    }
-    #abra {
-      visibility: visible;
-      display: block;
-      position: absolute;
-      top: 650px;
-      left: 20%;
-      right: 20%;
-      width: 200px;
-      height: 15px;
-      margin:auto;
-      margin-bottom: 200px;
-      direction: rtl;
-    }
-
-    .spacer {
-      visibility: visible;
-      display: block;
-      position: absolute;
-      top: 720px;
-      left: 20%;
-      right: 20%;
-      width: 200px;
-      height: 100px;
-      margin:auto;
-      margin-bottom: 200px;
-    }
-
-    .small_speed {
-      visibility: visible;
-      display: block;
-      position: absolute;
-      top: 620px;
-      left: 20%;
-      right: 20%;
-      width: 200px;
-      height: 20px;
-      margin:auto;
-      margin-bottom: 200px;
-      color: white;
-    }
-    }
-
-  
+  #abra {
+    visibility: visible;
+    display: block;
+    position: absolute;
+    top: 590px;
+    left: 20%;
+    right: 20%;
+    width: 200px;
+    height: 15px;
+    margin: auto;
+    margin-bottom: 200px;
+    direction: rtl;
+  }
+  .small_select {
+    visibility: visible;
+    display: block;
+    position: absolute;
+    top: 630px;
+    left: 20%;
+    right: 20%;
+    width: 200px;
+    height: 20px;
+    margin: auto;
+    margin-bottom: 200px;
+    color: white;
+  }
+  #bubble {
+    font-size: 12px;
+    visibility: visible;
+    display: block;
+    position: absolute;
+    top: 650px;
+    left: 20%;
+    right: 20%;
+    width: 200px;
+    height: 40px;
+    margin: auto;
+    margin-bottom: 20px;
+    margin-top: 10px;
+  }
+  #insertion {
+    font-size: 12px;
+    visibility: visible;
+    display: block;
+    position: absolute;
+    top: 700px;
+    left: 20%;
+    right: 20%;
+    width: 200px;
+    height: 40px;
+    margin: auto;
+    margin-bottom: 20px;
+    margin-top: 10px;
+  }
+  #selection {
+    font-size: 12px;
+    visibility: visible;
+    display: block;
+    position: absolute;
+    top: 750px;
+    left: 20%;
+    right: 20%;
+    width: 200px;
+    height: 40px;
+    margin: auto;
+    margin-bottom: 20px;
+    margin-top: 10px;
+  }
+  #merge {
+    font-size: 12px;
+    visibility: visible;
+    display: block;
+    position: absolute;
+    top: 800px;
+    left: 20%;
+    right: 20%;
+    width: 200px;
+    height: 40px;
+    margin: auto;
+    margin-bottom: 20px;
+    margin-top: 10px;
+  }
+  .spacer {
+    visibility: visible;
+    display: block;
+    position: absolute;
+    top: 850px;
+    left: 20%;
+    right: 20%;
+    width: 200px;
+    height: 100px;
+    margin: auto;
+    margin-bottom: 20px;
+    margin-top: 10px;
+  }
+}

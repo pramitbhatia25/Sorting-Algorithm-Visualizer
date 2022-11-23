@@ -268,13 +268,28 @@ async function startSort() {
       alert("Please Select A Sorting Algorithm First.")
     }
     if (button == 'bubble') {
-      bubble();
+      await bubble();
+      platforms.forEach((p) => {
+        p.color = "green"
+      })
+      await new Promise(r => setTimeout(r, insertion_speed));
+      requestAnimationFrame(animate);
     }
     else if (button == 'insertion') {
-      insertion();
+      await insertion();
+      platforms.forEach((p) => {
+        p.color = "green"
+      })
+      await new Promise(r => setTimeout(r, insertion_speed));
+      requestAnimationFrame(animate);
     }
     else if (button == 'selection') {
-      selection();
+      await selection();
+      platforms.forEach((p) => {
+        p.color = "green"
+      })
+      await new Promise(r => setTimeout(r, insertion_speed));
+      requestAnimationFrame(animate);
     }
     else if (button == 'merge') {
       let array = []

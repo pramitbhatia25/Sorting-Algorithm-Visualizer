@@ -23,10 +23,12 @@
             <button id="r" class="randomize" onclick="randomize()">Randomize</button>
         </div>
         <div class="sort_bar">
-        <button id="b" class="sort_button" onclick="startSort()">Sort</button>
+            <button id="b" class="sort_button" onclick="startSort()">Sort</button>
         </div>
+
         <input type="range" min="1" max="100" value="50" class="slider" id="abra">
-        <div class="small_speed">Select Speed!</div>
+        <div class="small_speed">Select Speed:</div>
+        <div class="small_select">Select Algorithm:</div>
         <div class="spacer"></div>
     </div>
     </div>
@@ -55,9 +57,9 @@
     <script>
         function set(name) {
             button = name;
-            // local = "http://127.0.0.1:5000/";
-            // window.location.href = local + name;
-            window.location.href = 'https://sorting-algo-viz.herokuapp.com/' + name;
+            local = "http://127.0.0.1:5000/";
+            window.location.href = local + name;
+            // window.location.href = 'https://sorting-algo-viz.herokuapp.com/' + name;
         }
     </script>
     <script type="text/javascript" src={{ url_for('static', filename='js/canvas.js' ) }}
