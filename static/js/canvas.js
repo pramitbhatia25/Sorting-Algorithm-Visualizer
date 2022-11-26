@@ -7,14 +7,14 @@ let no_of_items = 60;
 let bubble_speed = 40;
 let insertion_speed = 10;
 let selection_speed = 10;
-let merge_speed = 10;
+let quick_speed = 10;
 
 // alert('Please View On Laptop, Mobile Support Is Under Development');
 
 class Platform {
   constructor({ in_arr, height, color }) {
     this.position_in_arr = in_arr,
-    this.width = canvas.width / no_of_items;
+      this.width = canvas.width / no_of_items;
     this.height = height;
     this.color = color;
     this.alt_color = "white"
@@ -64,7 +64,7 @@ class Platform {
 }
 
 function randomize() {
-    if (!started) {
+  if (!started) {
     platforms = []
     random_heights = []
     for (let i = 0; i < no_of_items; i++) {
@@ -86,7 +86,7 @@ function randomize() {
   }
 }
 
-if(canvas.width / no_of_items < 5){
+if (canvas.width / no_of_items < 5) {
   no_of_items = 20;
 }
 
@@ -232,35 +232,84 @@ async function selection() {
   started = false;
 }
 
-
-async function merge(left, right){
-    let arr = []
-    while (left.length && right.length) {
-        if (left[0] < right[0]) {
-            arr.push(left.shift())  
-        } else {
-            arr.push(right.shift()) 
-        }
-    }
-    return [ ...arr, ...left, ...right ]
-}
-
-async function mergeSort(array) {
-  const half = array.length / 2
-  
-  // Base case or terminating case
-  if(array.length < 2){
-    return array 
-  }
-  
-  const left = array.splice(0, half)
-  return merge(await mergeSort(left),await mergeSort(array))
-}
-
 if (button != 'none') {
   document.getElementById(button).style.backgroundColor = 'red';
 }
-var tempArr = [...platforms];
+
+async function swap(arr, i, j) {
+  arr[i].color = "blue";
+  arr[j].color = "blue";
+  await new Promise(r => setTimeout(r, quick_speed));
+  requestAnimationFrame(animate);
+  arr[i].color = "yellow";
+  arr[j].color = "yellow";
+  await new Promise(r => setTimeout(r, quick_speed));
+  requestAnimationFrame(animate);
+  let temp = arr[i].height;
+  arr[i].height = arr[j].height;
+  arr[j].height = temp;
+  await new Promise(r => setTimeout(r, quick_speed));
+  requestAnimationFrame(animate);
+  arr[i].color = "red";
+  arr[j].color = "red";
+  await new Promise(r => setTimeout(r, quick_speed));
+  requestAnimationFrame(animate);
+}
+
+async function partition(arr, low, high) {
+  let pivot = arr[high].height;
+  let i = (low - 1);
+  for (let j = low; j < high; j++) {
+
+    if (arr[j].height < pivot) {
+      i++;
+      arr[i].color = "blue";
+      arr[j].color = "blue";
+      await new Promise(r => setTimeout(r, quick_speed));
+      requestAnimationFrame(animate);
+      arr[i].color = "yellow";
+      arr[j].color = "yellow";
+      await new Promise(r => setTimeout(r, quick_speed));
+      requestAnimationFrame(animate);
+      let temp = arr[i].height;
+      arr[i].height = arr[j].height;
+      arr[j].height = temp;
+      await new Promise(r => setTimeout(r, quick_speed));
+      requestAnimationFrame(animate);
+      arr[i].color = "red";
+      arr[j].color = "red";
+      await new Promise(r => setTimeout(r, quick_speed));
+      requestAnimationFrame(animate);
+    }
+  }
+  arr[i + 1].color = "blue";
+  arr[high].color = "blue";
+  await new Promise(r => setTimeout(r, quick_speed));
+  requestAnimationFrame(animate);
+  arr[i + 1].color = "yellow";
+  arr[high].color = "yellow";
+  await new Promise(r => setTimeout(r, quick_speed));
+  requestAnimationFrame(animate);
+  let temp = arr[i + 1].height;
+  arr[i + 1].height = arr[high].height;
+  arr[high].height = temp;
+  await new Promise(r => setTimeout(r, quick_speed));
+  requestAnimationFrame(animate);
+  arr[i + 1].color = "red";
+  arr[high].color = "red";
+  await new Promise(r => setTimeout(r, quick_speed));
+  requestAnimationFrame(animate);
+
+  return (i + 1);
+}
+
+async function quickSort(arr, low, high) {
+  if (low < high) {
+    let pi = await partition(arr, low, high);
+    await quickSort(arr, low, pi - 1);
+    await quickSort(arr, pi + 1, high);
+  }
+}
 
 async function startSort() {
   if (!started) {
@@ -288,22 +337,18 @@ async function startSort() {
       platforms.forEach((p) => {
         p.color = "green"
       })
-      await new Promise(r => setTimeout(r, insertion_speed));
+      await new Promise(r => setTimeout(r, selection_speed));
       requestAnimationFrame(animate);
     }
-    else if (button == 'merge') {
-      let array = []
-      platforms.forEach((p) => {
-        array.push(p.height);
+    else if (button == 'quick') {
+      let arr = [...platforms]
+      await quickSort(arr, 0, arr.length - 1);
+      arr.forEach((a) => {
       })
-      array = await mergeSort(array);
-      i = 0
       platforms.forEach((p) => {
-        p.height = array[i]
         p.color = "green"
-        i++
       })
-      await new Promise(r => setTimeout(r, insertion_speed));
+      await new Promise(r => setTimeout(r, quick_speed));
       requestAnimationFrame(animate);
     }
 
@@ -332,9 +377,9 @@ speed_slider.oninput = function () {
     selection_speed = speed_slider.value * 2;
     console.log(selection_speed)
   }
-  if (button == 'merge') {
-    merge_speed = speed_slider.value * 2;
-    console.log(merge_speed)
+  if (button == 'quick') {
+    quick_speed = speed_slider.value * 2;
+    console.log(quick_speed)
   }
 }
 
@@ -351,9 +396,9 @@ small_speed_slider.oninput = function () {
     selection_speed = small_speed_slider.value * 2;
     console.log(selection_speed)
   }
-  if (button == 'merge') {
-    merge_speed = small_speed_slider.value * 2;
-    console.log(merge_speed)
+  if (button == 'quick') {
+    quick_speed = small_speed_slider.value * 2;
+    console.log(quick_speed)
   }
 }
 
