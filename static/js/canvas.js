@@ -341,6 +341,7 @@ async function startSort() {
       requestAnimationFrame(animate);
     }
     else if (button == 'quick') {
+      started = true;
       let arr = [...platforms]
       await quickSort(arr, 0, arr.length - 1);
       arr.forEach((a) => {
@@ -350,6 +351,7 @@ async function startSort() {
       })
       await new Promise(r => setTimeout(r, quick_speed));
       requestAnimationFrame(animate);
+      started = false;
     }
 
   }
