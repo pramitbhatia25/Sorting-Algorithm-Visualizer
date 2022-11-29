@@ -122,6 +122,7 @@ ul {
 }
 
 .a {
+  z-index: 3;
   text-decoration: none;
   color: lightblue;
   font-size: 20px;
